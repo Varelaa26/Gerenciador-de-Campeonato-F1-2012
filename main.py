@@ -7,6 +7,10 @@ def main():
 
     rounds_list, drivers_list, teams_list = criar_objetos()
 
+    adicionar_resultados(rounds_list, drivers_list)
+
+    """
+
     print("1 - Exibir Corridas")
     print("2 - Exibir Pilotos")
     print("3 - Exibir equipes\n")
@@ -26,6 +30,9 @@ def main():
         case _:
             print("Ops... Opção inválida. Vamos tentar novamente.")
             main()
+            
+        """
+
 def criar_objetos():
     # DADOS BRUTOS DOS TIMES
     raw_teams_data = [
@@ -43,18 +50,18 @@ def criar_objetos():
 
     # DADOS BRUTOS DOS PILOTOS
     raw_drivers_data = [
-        [1, "Sebastian Vettel", "Red Bull"], [2, "Mark Webber", "Red Bull"],
-        [3, "Jenson Button", "McLaren"], [4, "Lewis Hamilton", "McLaren"],
-        [5, "Fernando Alonso", "Ferrari"], [6, "Felipe Massa", "Ferrari"],
-        [7, "Kimi Räikkönen", "Lotus"], [8, "Romain Grosjean", "Lotus"],
-        [9, "Bruno Senna", "Williams"], [10, "Pastor Maldonado", "Williams"],
-        [11, "Nico Hülkenberg", "Force India"], [12, "Paul di Resta", "Force India"],
-        [14, "Kamui Kobayashi", "Sauber"], [15, "Sergio Pérez", "Sauber"],
-        [16, "Daniel Ricciardo", "Toro Rosso"], [17, "Jean-Éric Vergne", "Toro Rosso"],
-        [18, "Michael Schumacher", "Mercedes"], [19, "Nico Rosberg", "Mercedes"],
-        [20, "Heikki Kovalainen", "Caterham"], [21, "Vitaly Petrov", "Caterham"],
-        [22, "Pedro de la Rosa", "HRT"], [23, "Narain Karthikeyan", "HRT"],
-        [24, "Timo Glock", "Marussia"], [25, "Charles Pic", "Marussia"]
+        [1, "Vettel", "Red Bull"], [2, "Webber", "Red Bull"],
+        [3, "Button", "McLaren"], [4, "Hamilton", "McLaren"],
+        [5, "Alonso", "Ferrari"], [6, "Massa", "Ferrari"],
+        [7, "Räikkönen", "Lotus"], [8, "Grosjean", "Lotus"],
+        [9, "Senna", "Williams"], [10, "Maldonado", "Williams"],
+        [11, "Hülkenberg", "Force India"], [12, "di Resta", "Force India"],
+        [14, "Kobayashi", "Sauber"], [15, "Pérez", "Sauber"],
+        [16, "Ricciardo", "Toro Rosso"], [17, "Vergne", "Toro Rosso"],
+        [18, "Schumacher", "Mercedes"], [19, "Rosberg", "Mercedes"],
+        [20, "Kovalainen", "Caterham"], [21, "Petrov", "Caterham"],
+        [22, "de la Rosa", "HRT"], [23, "Karthikeyan", "HRT"],
+        [24, "Glock", "Marussia"], [25, "Pic", "Marussia"]
     ]
     rounds_raw_list = [
         [1, "Melbourne"], [2, "Kalua Lumpur"],
@@ -96,5 +103,24 @@ def criar_objetos():
 
     return rounds_list, drivers_list, teams_list
 
+def adicionar_resultados(rounds_list, drivers_list):
+    corrida_para_adicionar = input("Digite a corrida que deseja adicionar os resultados: ")
+
+    gp_encontrado = None
+    for r in rounds_list:
+        if corrida_para_adicionar.strip().lower() == r.name.strip().lower():
+            gp_encontrado = r
+            break
+
+    if gp_encontrado is None:
+        print("\nErro: Esse GP não existe.")
+    else:
+        if gp_encontrado.already_happened:
+            print(f"\nErro: O GP de {gp_encontrado.name} já aconteceu.")
+        else:
+            gp_encontrado.set_results(drivers_list)
+
 if __name__ == "__main__":
     main()
+
+# Adicionar a função de ordenar os pilotos e equipes por número de pontos
