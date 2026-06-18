@@ -7,13 +7,10 @@ def main():
 
     rounds_list, drivers_list, teams_list = criar_objetos()
 
-    adicionar_resultados(rounds_list, drivers_list)
-
-    """
-
-    print("1 - Exibir Corridas")
-    print("2 - Exibir Pilotos")
-    print("3 - Exibir equipes\n")
+    print("1 - Exibir corridas")
+    print("2 - Exibir pilotos")
+    print("3 - Exibir equipes")
+    print("4 - Adicionar resultados\n")
 
     initial_input = input("Digite sua escolha: ")
 
@@ -21,17 +18,22 @@ def main():
         case "1":
             for r in rounds_list:
                 print(f"{r.id} - {r.name}")
+            main()
         case "2":
+            drivers_list.sort(key=lambda driver_obj: driver_obj.points, reverse=True)
             for d in drivers_list:
-                print(f"{d.num} - {d.name} - {d.team.name}")
+                print(f"{d.num} - {d.name} - {d.team.name} - {d.points}")
+            main()
         case "3":
             for t in teams_list:
                 print(f"{t.id} - {t.name}")
+            main()
+        case "4":
+            adicionar_resultados(rounds_list, drivers_list)
+            main()
         case _:
             print("Ops... Opção inválida. Vamos tentar novamente.")
             main()
-            
-        """
 
 def criar_objetos():
     # DADOS BRUTOS DOS TIMES
@@ -122,5 +124,3 @@ def adicionar_resultados(rounds_list, drivers_list):
 
 if __name__ == "__main__":
     main()
-
-# Adicionar a função de ordenar os pilotos e equipes por número de pontos
